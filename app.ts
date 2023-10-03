@@ -1,6 +1,3 @@
-import { load } from "https://deno.land/std@0.196.0/dotenv/mod.ts";
-const env = await load()
-
 import { Hono } from 'https://deno.land/x/hono@v3.3.1/mod.ts'
 
 import { REST } from 'npm:@discordjs/rest@^2.0.0'
@@ -14,10 +11,10 @@ import { makeBadge } from 'npm:badge-maker@^3.3.1'
 import logos from './logos.json' assert { type: 'json' }
 const { vscode, intellij, spotify, crunchyroll } = logos
 
-const rest = new REST().setToken(env.TOKEN)
+const rest = new REST().setToken(Deno.env.get("TOKEN")!)
 
 const gateway = new WebSocketManager({
-	token: env.TOKEN,
+	token: Deno.env.get("TOKEN")!,
 	intents: GatewayIntentBits.Guilds | GatewayIntentBits.GuildPresences,
 	rest
 })
@@ -75,7 +72,7 @@ const formatter = new Intl.ListFormat()
 
 const app = new Hono()
 
-app.get('/', c => c.redirect('https://statusbadges.me'))
+app.get('/', c => c.redirect('https://homeonacloud.com'))
 
 app.get('/badge/status/:id', c => {
 	const realStatus = presences.get(c.req.param('id'))?.status ?? PresenceUpdateStatus.Offline
@@ -224,4 +221,4 @@ app.get('/openspotify/:id', c => {
 	return c.redirect(`https://open.spotify.com/track/${spotifyActivity.sync_id}`)
 })
 
-Deno.serve({ port: +env.PORT }, app.fetch)
+Deno.serve({ port: 80 }, app.fetch)
