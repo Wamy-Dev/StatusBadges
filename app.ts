@@ -104,7 +104,7 @@ app.get('/badge/playing/:id', c => {
 
 	return c.body(makeBadge({
 		label: c.req.query('label') ?? 'playing',
-		message: formatter.format(activities.map(a => a.name)) || c.req.query('fallback') || 'nothing rn',
+		message: formatter.format(activities.map(a => a.name)) || c.req.query('fallback') || 'Nothing',
 		labelColor: c.req.query('labelColor') ?? 'gray',
 		color: c.req.query('color') ?? '#5865f2',
 		style: resolveStyle(c.req.query('style'))
@@ -123,7 +123,7 @@ app.get('/badge/vscode/:id', c => {
 		label: c.req.query('label') ?? 'coding',
 		message: activity && activity.details && activity.state
 			? `${activity.details.replace('Editing ', '')} in ${activity.state.replace(/(Workspace: | \(Workspace\))/g, '').replace('Glitch:', '🎏')}`
-			: c.req.query('fallback') ?? 'nothing rn',
+			: c.req.query('fallback') ?? 'Nothing',
 		labelColor: c.req.query('labelColor') ?? 'gray',
 		color: c.req.query('color') ?? '#23a7f2',
 		style
@@ -147,7 +147,7 @@ app.get('/badge/intellij/:id', c => {
 		label: c.req.query('label') ?? 'coding',
 		message: activity && activity.details && activity.state
 			? `${activity.details.replace('Editing ', '')} in ${activity.state}`
-			: c.req.query('fallback') ?? 'nothing rn',
+			: c.req.query('fallback') ?? 'Nothing',
 		labelColor: c.req.query('labelColor') ?? 'gray',
 		color: c.req.query('color') ?? '#fe315d',
 		style
@@ -171,7 +171,7 @@ app.get('/badge/spotify/:id', c => {
 		label: c.req.query('label') ?? 'listening to',
 		message: activity && activity.details && activity.state
 			? `${activity.details.replace(/\(.*\)/g, '')} by ${formatter.format(activity.state.split('; '))}`
-			: c.req.query('fallback') ?? 'nothing rn',
+			: c.req.query('fallback') ?? 'Nothing',
 			labelColor: c.req.query('labelColor') ?? 'gray',
 			color: c.req.query('color') ?? '#1db954',
 		style
@@ -195,7 +195,7 @@ app.get('/badge/crunchyroll/:id', c => {
 		label: c.req.query('label') ?? 'watching',
 		message: activity && activity.details
 			? activity.details
-			: c.req.query('fallback') ?? 'nothing rn',
+			: c.req.query('fallback') ?? 'Nothing',
 			labelColor: c.req.query('labelColor') ?? 'gray',
 			color: c.req.query('color') ?? '#f47521',
 		style
